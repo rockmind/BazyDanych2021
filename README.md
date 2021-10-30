@@ -6,7 +6,7 @@
 
 ## Wybrane technologie 
 - RDBS: [PostgresSQL](https://www.postgresql.org/)
-- Language: [Python 3.10](https://www.python.org/)
+- Język: [Python 3.10](https://www.python.org/)
 - Web framework: [FastApi](https://fastapi.tiangolo.com/)
  
 # Cel projektu
