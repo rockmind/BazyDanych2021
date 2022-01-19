@@ -15,7 +15,7 @@ class Category(Base):
     product = relationship("Product", back_populates="category")
 
 
-# class CustomerCustomerDemo(Base):       # puste tabele
+# class CustomerCustomerDemo(Base):       # TODO
 #     __tablename__ = "customer_customer_demo"
 #
 #     customer_id = Column()
@@ -40,7 +40,7 @@ class Customer(Base):
     phone = Column(String)
     fax = Column(String)
 
-    order = relationship("Order", back_populates="customer")
+    orders = relationship("Order", back_populates="customer")
 
 
 # zmienna zamiast klasy odwzorowującej tabelę pośredniczącą
@@ -73,7 +73,7 @@ class Employee(Base):
     photo_path = Column(String)
 
     territory = relationship("Territory", secondary=employee_territory_association, back_populates="employee")
-    # employee_reporte = relationship("Employee", back_populates="reports_to")
+    # employee_reporte = relationship("Employee", back_populates="reports_to")  TODO: self-reference
     order = relationship("Order", back_populates="employee")
 
 
@@ -109,7 +109,7 @@ class Order(Base):
     ship_country = Column(String)
 
     order_detail = relationship("OrderDetail", back_populates="order")
-    customer = relationship("Customer", back_populates="order")
+    customer = relationship("Customer", back_populates="orders")
     employee = relationship("Employee", back_populates="order")
     shipper = relationship("Shipper", back_populates="order")
 
