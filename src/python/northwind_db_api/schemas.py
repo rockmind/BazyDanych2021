@@ -1,11 +1,11 @@
 from __future__ import annotations
-from datetime import datetime
+from datetime import date
 from typing import List, Optional
 
 from pydantic import BaseModel
 
 
-class BaseCustomer(BaseModel):
+class Customer(BaseModel):
     customer_id: str
     company_name: str
     contact_name: Optional[str]
@@ -22,18 +22,17 @@ class BaseCustomer(BaseModel):
         orm_mode = True
 
 
-class Customer(BaseCustomer):
+class CustomerWithOrders(Customer):
+    orders: List[Order] = []
 
-    orders: List['BaseOrder'] = []
 
-
-class BaseOrder(BaseModel):
+class Order(BaseModel):
     order_id: Optional[int]
     customer_id: Optional[str]
     employee_id: Optional[int]
-    order_date: Optional[datetime]
-    required_date: Optional[datetime]
-    shipped_date: Optional[datetime]
+    order_date: Optional[date]
+    required_date: Optional[date]
+    shipped_date: Optional[date]
     ship_via: Optional[int]
     freight: Optional[float]
     ship_name: Optional[str]
@@ -47,9 +46,9 @@ class BaseOrder(BaseModel):
         orm_mode = True
 
 
-Customer.update_forward_refs()
+class OrderWithCustomer(Order):
+    customer: Optional[Customer]
 
 
-class Order(BaseOrder):
-    customer: Optional['Customer']
-
+CustomerWithOrders.update_forward_refs()
+OrderWithCustomer.update_forward_refs()

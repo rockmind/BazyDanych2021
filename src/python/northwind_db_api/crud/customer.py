@@ -2,7 +2,7 @@ from typing import Optional
 
 from northwind_db_api.database import SessionLocal
 from northwind_db_api.models import Customer
-from northwind_db_api.schemas import Customer as CustomerSchema
+from northwind_db_api.schemas import CustomerWithOrders as CustomerSchema
 
 session = SessionLocal()
 
