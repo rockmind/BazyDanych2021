@@ -80,7 +80,7 @@ class Employee(Base):
 class OrderDetail(Base):
     __tablename__ = "order_details"
 
-    order_id = Column(SmallInteger, ForeignKey("orders.order_id"), primary_key=True, index=True) #pk z dwóch kolumn
+    order_id = Column(SmallInteger, ForeignKey("orders.order_id"), primary_key=True, index=True)
     product_id = Column(SmallInteger, ForeignKey("products.product_id"), primary_key=True, index=True)
     unit_price = Column(Float)
     quantity = Column(SmallInteger)

@@ -61,5 +61,100 @@ class OrderWithCustomer(Order):
     customer: Optional[Customer]
 
 
+class OrderWithOrderDetails(Order):
+    orderDetails: List[OrderDetail] = []
+
+
+class OrderDetail(BaseModel):
+    order_id: int
+    product_id: int
+    unit_price: float
+    quantity: int
+    discount: float
+
+    class Config:
+        orm_mode = True
+
+
+class OrderDetailWithOrder(OrderDetail):
+    order: Order
+
+
+class OrderDetailWithProduct(OrderDetail):
+    product: Product
+
+
+class Product(BaseModel):
+    product_id: int
+    product_name: str
+    supplier_id: Optional[int]
+    category_id: Optional[int]
+    quantity_per_unit: Optional[str]
+    unit_price: Optional[float]
+    units_in_stock: Optional[int]
+    units_on_order: Optional[int]
+    reorder_level: Optional[int]
+    discontinued: int
+
+    class Config:
+        orm_mode = True
+
+
+class ProductWithOrderDetail(Product):
+    orderDetails: List[OrderDetail] = []
+
+
+class ProductWithSupplier(Product):
+    supplier: Optional[Supplier]
+
+
+class ProductWithCategory(Product):
+    category: Optional[Category]
+
+
+class Category(BaseModel):
+    category_id: int
+    category_name: str
+    description: Optional[str]
+    picture: Optional[bytes]
+
+    class Config:
+        orm_mode = True
+
+
+class CategoryWithProducts(Category):
+    products: List[Product] = []
+
+
+class Supplier(BaseModel):
+    supplier_id: int
+    company_name: str
+    contact_name: Optional[str]
+    contact_title: Optional[str]
+    address: Optional[str]
+    city: Optional[str]
+    region: Optional[str]
+    postal_code: Optional[str]
+    country: Optional[str]
+    phone: Optional[str]
+    fax: Optional[str]
+    homepage: Optional[str]
+
+    class Config:
+        orm_mode = True
+
+
+class SupplierWithProducts(Supplier):
+    products: List[Product] = []
+
+
 CustomerWithOrders.update_forward_refs()
 OrderWithCustomer.update_forward_refs()
+OrderWithOrderDetails.update_forward_refs()
+OrderDetailWithOrder.update_forward_refs()
+OrderDetailWithProduct.update_forward_refs()
+ProductWithOrderDetail.update_forward_refs()
+ProductWithSupplier.update_forward_refs()
+ProductWithCategory.update_forward_refs()
+CategoryWithProducts.update_forward_refs()
+SupplierWithProducts.update_forward_refs()
