@@ -108,7 +108,7 @@ class Order(Base):
     ship_postal_code = Column(String)
     ship_country = Column(String)
 
-    order_detail = relationship("OrderDetail", back_populates="order")
+    order_detail = relationship("OrderDetail", cascade="all,delete", back_populates="order")
     customer = relationship("Customer", back_populates="orders")
     employee = relationship("Employee", back_populates="order")
     shipper = relationship("Shipper", back_populates="order")

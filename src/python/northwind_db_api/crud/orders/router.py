@@ -1,3 +1,4 @@
+from datetime import date
 from typing import List
 from fastapi import APIRouter, Depends,  HTTPException
 from sqlalchemy.orm import Session
@@ -10,14 +11,21 @@ orders_crud_router = APIRouter(prefix="/orders")
 
 
 @orders_crud_router.get("/", response_model=List[Order])
-def read_orders(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    orders = crud.get_orders(db, skip=skip, limit=limit)
+def read_orders(
+        skip: int = 0,
+        limit: int = 100,
+        customer_id: str = None,
+        date_from: date = None,
+        date_to: date = None,
+        db: Session = Depends(get_db)
+):
+    orders = crud.get_orders(db, skip=skip, limit=limit, customer_id=customer_id, date_to=date_to, date_from=date_from)
     return orders
 
 
 @orders_crud_router.get("/{order_id}", response_model=Order)
 def read_order(order_id: str, db: Session = Depends(get_db)):
-    db_order = crud.get_order_by_id(db, order_id=order_id)
+    db_order = crud.get_order_by_id(db, order_id=int(order_id))
     if db_order is None:
         raise HTTPException(status_code=404, detail="Order not found")
     return db_order
@@ -46,7 +54,7 @@ def update_order(order_id: str, order: Order, db: Session = Depends(get_db)):
 
 @orders_crud_router.delete("/{order_id}", status_code=204)
 def delete_order(order_id: str, db: Session = Depends(get_db)):
-    db_order = crud.get_order_by_id(db, order_id=order_id)
+    db_order = crud.get_order_by_id(db, order_id=int(order_id))
     if not db_order:
         raise HTTPException(status_code=400, detail="Order with this order_id dose not exits")
     crud.delete_order(db_session=db, order=db_order)
