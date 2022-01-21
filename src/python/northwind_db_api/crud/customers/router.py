@@ -11,8 +11,8 @@ customers_crud_router = APIRouter(prefix="/customers")
 
 @customers_crud_router.get("/", response_model=List[Customer])
 def read_customers(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    users = crud.get_customers(db, skip=skip, limit=limit)
-    return users
+    customers = crud.get_customers(db, skip=skip, limit=limit)
+    return customers
 
 
 @customers_crud_router.get("/{customer_id}", response_model=Customer)
