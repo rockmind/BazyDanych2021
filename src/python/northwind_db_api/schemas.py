@@ -2,12 +2,23 @@ from __future__ import annotations
 from datetime import date
 from typing import List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel as PydanticBaseModel
+
+
+class BaseModel(PydanticBaseModel):
+
+    def json(self, *args, **kwargs):
+        kwargs.pop('exclude_none', None)
+        return super().json(*args, **kwargs, exclude_none=True)
+
+    def dict(self, *args, **kwargs):
+        kwargs.pop('exclude_none', None)
+        return super().dict(*args, **kwargs, exclude_none=True)
 
 
 class Customer(BaseModel):
-    customer_id: str
-    company_name: str
+    customer_id: Optional[str]
+    company_name: Optional[str]
     contact_name: Optional[str]
     contact_title: Optional[str]
     address: Optional[str]
