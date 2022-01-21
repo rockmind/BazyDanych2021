@@ -43,47 +43,47 @@ Tworzymy swój własny obraz w którym umieszczemy skrypt do zainicjalizowania s
 curl --request GET  --url 'http://${host}:8888/customers/?skip=1&limit=2'
 ```
 ### get customer
-`curl --request GET  --url http://127.0.0.1:8888/customers/${customer_id}`
+`curl --request GET  --url http://${host}:8888/customers/${customer_id}`
 
 ### get customer orders
-`curl --request GET  --url http://127.0.0.1:8888/customers/${customer_id}/orders`
+`curl --request GET  --url http://${host}:8888/customers/${customer_id}/orders`
 
-### delete_customer
+### delete customer
 `curl --request DELETE --url http://${host}:8888/customers/${customer_id}`
 
-### create_customer
+### create customer
 ```
 curl --request POST \
   --url http://${host}:8888/customers/ \
   --header 'Content-Type: application/json' \
   --data '	{
-		"customer_id": "ADAM",
-		"company_name": "asd asd",
-		"contact_name": "Fajna",
-		"contact_title": "Firma",
-		"address": "Obere Str. 57",
-		"city": "Berlin",
-		"postal_code": "12209",
-		"country": "Germany",
-		"phone": "030-0074321",
-		"fax": "030-0076545"
+		"customer_id": "${customer_id}",
+		"company_name": "${company_name}",
+		"contact_name": "${contact_name}",
+		"contact_title": "${contact_title}",
+		"address": "${address}",
+		"city": "${city}",
+		"postal_code": "${postal_code}",
+		"country": "${country}",
+		"phone": "${phone}",
+		"fax": "${fax}"
 	}'
 ```
 
-### update_customer
+### update customer
 ```
 curl --request PUT \
      --url http://${host}:8888/customers/${customer_id} \
      --header 'Content-Type: application/json' \
      --data '{
-        "company_name": "Moja",
-        "contact_name": "Fajna",
-        "contact_title": "Firma",
-        "address": "Obere Str. 57",
-        "city": "Berlin",
-        "postal_code": "12209",
-        "country": "Germany",
-        "phone": "030-0074321",
-        "fax": "030-0076545"
+        "company_name": "${company_name}",
+        "contact_name": "${contact_name}",
+        "contact_title": "${contact_title}",
+        "address": "${address}",
+        "city": "${city}",
+        "postal_code": "${postal_code}",
+        "country": "${country}",
+        "phone": "${phone}",
+        "fax": "${fax}"
      }'
 ```
