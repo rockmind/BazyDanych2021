@@ -12,7 +12,7 @@ def create_customer(db_session: 'Session', customer: CustomerSchema):
     db_customer = CustomerModel(**customer.dict())
     db_session.add(db_customer)
     db_session.commit()
-    db_session.refresh(db_customer)  # po co to?
+    db_session.refresh(db_customer)
     return db_customer
 
 
@@ -32,14 +32,12 @@ def get_customer_by_company_name(db_session: 'Session', company_name: str) -> Op
 
 def update_customer(db_session: 'Session', customer: CustomerSchema):
     db_customer = get_customer_by_id(db_session, customer_id=customer.customer_id)
-    try:
-        db_session.query(CustomerModel).filter(CustomerModel.customer_id == db_customer.customer_id)\
-                                       .update(customer.dict())
-    except AttributeError:
-        db_session.rollback()
+    if not db_customer:
         raise DBErrorObjectNotExists
-    else:
-        db_session.commit()
+
+    db_session.query(CustomerModel).filter(CustomerModel.customer_id == db_customer.customer_id).update(customer.dict())
+
+    db_session.commit()
 
 
 def delete_customer(db_session: 'Session', customer: CustomerModel):

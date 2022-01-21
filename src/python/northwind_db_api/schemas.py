@@ -38,7 +38,7 @@ class CustomerWithOrders(Customer):
 
 
 class Order(BaseModel):
-    order_id: Optional[int]
+    order_id: Optional[str]
     customer_id: Optional[str]
     employee_id: Optional[int]
     order_date: Optional[date]

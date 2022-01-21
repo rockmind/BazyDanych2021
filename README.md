@@ -15,8 +15,9 @@ wybrane podstawowe operacje w przykładowej bazie Northwind
 w wybranej technologii.
 
 # Baza Danych
-Do postawienia bazy danych z przykładowymi danymi wykorzystaliśmy gotowy skrypt umieszczony
-w repozytorium https://github.com/pthom/northwind_psql.
+Do postawienia bazy danych z przykładowymi danymi wykorzystaliśmy gotowy
+[skrypt](https://raw.githubusercontent.com/pthom/northwind_psql/master/northwind.sql)
+umieszczony w repozytorium https://github.com/pthom/northwind_psql.
 
 ## Inicjalizacja bazy
 Do postawienia bazy danych używamy dockera i obrazu postgres:14.1-alpine.
