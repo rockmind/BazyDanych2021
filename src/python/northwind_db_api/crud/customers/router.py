@@ -24,7 +24,7 @@ def read_customer(customer_id: str, db: Session = Depends(get_db)):
 
 
 @customers_crud_router.get("/{customer_id}/orders/", response_model=List[Order])
-def read_customers_items(customer_id: str, db: Session = Depends(get_db)):
+def read_customers_orders(customer_id: str, db: Session = Depends(get_db)):
     db_customer = crud.get_customer_by_id(db, customer_id=customer_id)
     if db_customer is None:
         raise HTTPException(status_code=404, detail="Customer not found")
